@@ -39,7 +39,9 @@ const ProductsContextProvider = ({ children }) => {
   const [dataId, setDataId] = useState();
 
   const getProducts = async (params = "") => {
-    const { data } = await axios(`http://localhost:8001/products?${params}`);
+    const { data } = await axios(
+      `https://shop-13-2021.herokuapp.com/api/products?${params}`
+    );
     dispatch({
       type: "GET_PRODUCTS",
       payload: data,
@@ -47,7 +49,9 @@ const ProductsContextProvider = ({ children }) => {
   };
 
   const getCurProduct = async (id) => {
-    const { data } = await axios(`http://localhost:8001/products/${id}`);
+    const { data } = await axios(
+      `https://shop-13-2021.herokuapp.com/api/products/${id}`
+    );
     dispatch({
       type: "GET_CURRENT_PRODUCT",
       payload: data,
@@ -55,12 +59,14 @@ const ProductsContextProvider = ({ children }) => {
   };
 
   async function addMainTopic(topic) {
-    await axios.post("http://localhost:8001/products", topic);
+    await axios.post("https://shop-13-2021.herokuapp.com/api/products", topic);
     getTopics();
   }
 
   async function getTopics(params) {
-    let { data } = await axios(`http://localhost:8001/products?${params}`);
+    let { data } = await axios(
+      `https://shop-13-2021.herokuapp.com/api/products?${params}`
+    );
     dispatch({
       type: "GET_TOPICS",
       payload: data,
@@ -69,7 +75,10 @@ const ProductsContextProvider = ({ children }) => {
 
   async function editTopicDetails(newTopic) {
     console.log(dataId);
-    await axios.patch(`http://localhost:8001/products/${dataId}`, newTopic);
+    await axios.patch(
+      `https://shop-13-2021.herokuapp.com/api/products/${dataId}`,
+      newTopic
+    );
     getTopics();
   }
 
@@ -78,8 +87,13 @@ const ProductsContextProvider = ({ children }) => {
     setDataId(id);
   }
 
+
+  function test(){
+    console.log('hrllo')
+  }
+
   async function handleDelete(id) {
-    await axios.delete(`http://localhost:8001/products/${id}`);
+    await axios.delete(`https://shop-13-2021.herokuapp.com/api/products/${id}`);
     getProducts();
   }
 
